@@ -19,16 +19,14 @@ const int led = 13;
 long duration;
 int distance;
 
-void setup()
-{
+void setup() {
     pinMode(trigPin, OUTPUT); // Sets the trigPin as an Output
     pinMode(echoPin, INPUT);  // Sets the echoPin as an Input
     pinMode(led, OUTPUT);     //Sets the integrated led as Output
     Serial.begin(9600);       // Starts the serial communication
 }
 
-void loop()
-{
+void loop() {
     // Clears the trigPin
     digitalWrite(trigPin, LOW);
 
@@ -38,18 +36,17 @@ void loop()
     delayMicroseconds(10);
     digitalWrite(trigPin, LOW);
 
-    // Reads the echoPin, returns the sound wave travel time in microseconds
+    // Reads from the echoPin the sound wave travel time in microseconds
     duration = pulseIn(echoPin, HIGH);
 
     // Calculating the distance
     distance = duration * 0.034 / 2;
 
-    if (distance > 5)
-    {
+    // Turn on the led if distance is above 5cm
+    if (distance < 5) {
         digitalWrite(led, HIGH);
     }
-    else
-    {
+    else {
         digitalWrite(led, LOW);
     }
 
@@ -57,6 +54,6 @@ void loop()
     Serial.print("Distance: ");
     Serial.println(distance);
 
-    // set a delay of 1 second
+    // set a delay of 1 second between misurations
     delay(1000);
 }
